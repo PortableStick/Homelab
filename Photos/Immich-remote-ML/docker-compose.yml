@@ -1,0 +1,23 @@
+name: immich_remote_ml
+
+services:
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    # Ajout de openvino à la fin du tag de version pour choix modèle !
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-openvino
+    # Device pour accel. graphique ML (Marche seulement pour GPU Intel, cf. doc Immich si chgmnt)
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - model-cache:/cache
+      - /dev/bus/usb:/dev/bus/usb
+    restart: always
+    healthcheck:
+      disable: false
+    ports:
+      - 3003:3003
+
+volumes:
+  model-cache:

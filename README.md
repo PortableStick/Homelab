@@ -11,6 +11,8 @@ Deux Immich (*Immich et Immich-2*) sont mis en places en container, chacun ayant
 Les fichiers '''docker-compose.yml''' sont paramétrés pour **mon matériel** et permettent l'accélération graphique et ML sur un GPU Intel. 
 Par ailleurs, ces fichiers sont complétés par les sections correspondantes des fichiers à propos de l'accélération provenant de la [documentation Immich](https://immich.app/docs/overview/welcome).
 
+Le container *Immich-remote-ML* sert aux deux Immich pour le machine learning.
+
 ## À faire :
 
 - [x] Création du repo github

@@ -1,4 +1,4 @@
-name: immich
+name: immich-2
 
 services:
   immich-server:
@@ -12,14 +12,13 @@ services:
       - ${UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - '2283:2283' # Accès WebUI
+      - '2284:2284' # Accès WebUI
     depends_on:
       - redis
       - database
     restart: always
     healthcheck:
       disable: false
-
   redis:
     container_name: immich_redis
     image: docker.io/valkey/valkey:8-bookworm@sha256:a137a2b60aca1a75130022d6bb96af423fefae4eb55faf395732db3544803280
