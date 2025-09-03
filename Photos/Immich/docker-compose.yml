@@ -4,6 +4,8 @@ services:
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       # Device pour accel. graphique sur transcoding(Marche seulement pour GPU Intel, cf. doc Immich si chgmnt)
     devices:
       - /dev/dri:/dev/dri
