@@ -38,6 +38,6 @@ services:
       #DB_STORAGE_TYPE: 'HDD'
     volumes:
       # A modifier dans le stack.env
-      - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
+      - ${DB_DATA_LOCATION2}:/var/lib/postgresql/data
     shm_size: 256mb
     restart: always
