@@ -12,7 +12,7 @@ services:
       - ${UPLOAD_LOCATION2}:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - '2284:2284' # Accès WebUI
+      - '2284:2283' # Accès WebUI HOST:CONTAINER
     depends_on:
       - redis
       - database
