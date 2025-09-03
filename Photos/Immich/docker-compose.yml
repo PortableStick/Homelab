@@ -42,6 +42,3 @@ services:
       - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
     shm_size: 256mb
     restart: always
-
-volumes:
-  model-cache:
