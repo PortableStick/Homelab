@@ -1,7 +1,7 @@
 name: immich-2
 
 services:
-  immich2-server:
+  immich-server:
     container_name: immich2_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION2:-release}
       # Device pour accel. graphique sur transcoding(Marche seulement pour GPU Intel, cf. doc Immich si chgmnt)
