@@ -24,6 +24,8 @@ services:
   redis:
     container_name: immich2_redis
     image: docker.io/valkey/valkey:8-bookworm@sha256:a137a2b60aca1a75130022d6bb96af423fefae4eb55faf395732db3544803280
+    networks:
+      - frontend
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
@@ -31,6 +33,8 @@ services:
   database:
     container_name: immich2_postgres
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:32324a2f41df5de9efe1af166b7008c3f55646f8d0e00d9550c16c9822366b4a
+    networks:
+      - frontend
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD2}
       POSTGRES_USER: ${DB_USERNAME2}
