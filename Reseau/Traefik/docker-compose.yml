@@ -12,8 +12,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  services:
-    whoami:
-      image: traefik/whoami
-      labels:
-        - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)" 
