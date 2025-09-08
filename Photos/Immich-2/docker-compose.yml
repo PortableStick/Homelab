@@ -5,6 +5,8 @@ services:
     container_name: immich2_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION2:-release}
       # Device pour accel. graphique sur transcoding(Marche seulement pour GPU Intel, cf. doc Immich si chgmnt)
+    networks:
+      - frontend
     devices:
       - /dev/dri:/dev/dri
     volumes:
@@ -41,3 +43,9 @@ services:
       - ${DB_DATA_LOCATION2}:/var/lib/postgresql/data
     shm_size: 256mb
     restart: always
+
+networks:
+  frontend:
+    name: frontend
+    external: true
+

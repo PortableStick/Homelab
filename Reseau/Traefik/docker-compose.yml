@@ -1,18 +1,29 @@
-# docker-compose.yml
 services:
   traefik:
-    image: traefik:v3.5
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
+    image: traefik
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=Europe/Paris
+      - CF_API_EMAIL=${CF_API_EMAIL}
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+    networks:
+      - frontend
     ports:
-      - "80:80"
-      - "8080:8080"
+      - 80:80 # Port HTTP
+      - 443:443 # Port HTTPS
+      - 8080:8080 # Accès dashboard
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${TRAEFIK_FILES}:/traefik.yml:ro
+      - ${TRAEFIK_FILES}:/certs
 
-  whoami:
-    image: traefik/whoami
-    labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)" 
+volumes:
+  traefik:
+    name: traefik
+
+networks:
+  frontend:
+    name: frontend

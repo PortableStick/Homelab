@@ -6,6 +6,8 @@ services:
     # Ajout de openvino à la fin du tag de version pour choix modèle !
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-openvino
     # Device pour accel. graphique ML (Marche seulement pour GPU Intel, cf. doc Immich si chgmnt)
+    networks:
+      - frontend
     device_cgroup_rules:
       - 'c 189:* rmw'
     devices:
@@ -21,3 +23,8 @@ services:
 
 volumes:
   model-cache:
+
+networks:
+  frontend:
+    name: frontend
+    external: true
