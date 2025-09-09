@@ -10,6 +10,13 @@ services:
     networks:
       - frontend
       - backend
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.immich.rule=Host(`pictures.vindiesel.vip`)"
+        - "traefik.http.routers.immich.entrypoints=websecure"
+        - "traefik.http.routers.immich.tls=true"
+        - "traefik.http.routers.immich.tls.certresolver=letencrypt"
+        - "traefik.http.services.immich.loadbalancer.server.port=80"
     devices:
       - /dev/dri:/dev/dri
     volumes:
