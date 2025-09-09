@@ -19,10 +19,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${TRAEFIK_FILES}/traefik.yml:/traefik.yml:ro
       - ${TRAEFIK_FILES}/certs:/certs
-
-volumes:
-  traefik:
-    name: traefik
+  whoami:
+    container_name: whoami-traefik
+    image: traefik/whoami
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.whoami.rule=Host('test.vindiesel.vip')"
+        - "traefik.http.routers.whoami.entrypoints=websecure"
+        - "traefik.http.routers.whoami.tls=true"
+        - "traefik.http.routers.whoami.tls.certresolver=letencrypt"
+        - "traefik.http.services.whoami.loadbalancer.server.port=80"
 
 networks:
   frontend:
