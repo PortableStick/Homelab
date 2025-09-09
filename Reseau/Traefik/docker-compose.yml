@@ -17,8 +17,8 @@ services:
       - 8080:8080 # Accès dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${TRAEFIK_FILES}:/traefik.yml:ro
-      - ${TRAEFIK_FILES}:/certs
+      - ${TRAEFIK_FILES}/traefik.yml:/traefik.yml:ro
+      - ${TRAEFIK_FILES}/certs:/certs
 
 volumes:
   traefik:
