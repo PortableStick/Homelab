@@ -23,6 +23,8 @@ services:
   whoami:
     container_name: whoami-traefik
     image: traefik/whoami
+    networks:
+      - frontend
     labels:
         - "traefik.enable=true"
         - "traefik.http.routers.whoami.rule=Host(`test.vindiesel.vip`)" # Utiliser ` et non ' 
