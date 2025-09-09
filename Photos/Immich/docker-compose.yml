@@ -16,7 +16,7 @@ services:
         - "traefik.http.routers.immich-server.entrypoints=websecure"
         - "traefik.http.routers.immich-server.tls=true"
         - "traefik.http.routers.immich-server.tls.certresolver=letencrypt"
-        - "traefik.http.services.immich-server.loadbalancer.server.port=80"
+        - "traefik.http.services.immich-server.loadbalancer.server.port=2283"
     devices:
       - /dev/dri:/dev/dri
     volumes:
