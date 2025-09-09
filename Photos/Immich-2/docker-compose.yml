@@ -1,7 +1,7 @@
 name: immich-2
 
 services:
-  immich-server:
+  immich-server2:
     container_name: immich2_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION2:-release}
       # Device pour accel. graphique sur transcoding(Marche seulement pour GPU Intel, cf. doc Immich si chgmnt)
@@ -10,7 +10,7 @@ services:
       - backend
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.immich-server.rule=Host(`pictures.vindiesel.vip`)"
+        - "traefik.http.routers.immich-server.rule=Host(`photos.vindiesel.vip`)"
         - "traefik.http.routers.immich-server.entrypoints=websecure"
         - "traefik.http.routers.immich-server.tls=true"
         - "traefik.http.routers.immich-server.tls.certresolver=letencrypt"
