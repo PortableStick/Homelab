@@ -9,6 +9,7 @@ services:
       - TZ=Europe/Paris
       - CF_API_EMAIL=${CF_API_EMAIL}
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+      - TRAEFIK_DASHBOARD_CREDENTIALS=${TRAEFIK_DASHBOARD_CREDENTIALS}
     networks:
       - frontend
     ports:
@@ -20,6 +21,9 @@ services:
       - ${TRAEFIK_FILES}/traefik.yml:/traefik.yml:ro
       - ${TRAEFIK_FILES}/certs:/certs
       - ${TRAEFIK_FILES}/logs:/var/log/traefik
+    labels:
+      - "traefik.http.middlewares.test-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
+
   whoami:
     container_name: whoami-traefik
     image: traefik/whoami
