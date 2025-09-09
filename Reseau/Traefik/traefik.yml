@@ -29,8 +29,8 @@ certificatesResolvers:
         provider: cloudflare
         delayBeforeCheck: 10
 
-  log:
-    level: "INFO"
-    filePath: "/var/log/traefik/traefik.log"
-  accessLog:
-    filePath: "/var/log/traefik/access.log"
+log:
+  level: "INFO"
+  filePath: "/var/log/traefik/traefik.log"
+accessLog:
+  filePath: "/var/log/traefik/access.log"
