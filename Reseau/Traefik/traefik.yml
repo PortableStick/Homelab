@@ -1,7 +1,7 @@
 api:
   dashboard: true
   insecure: true
-  debug: true
+  debug: false
 entryPoints:
   web:
     address: ":80"
@@ -28,3 +28,9 @@ certificatesResolvers:
       dnsChallenge:
         provider: cloudflare
         delayBeforeCheck: 10
+
+  log:
+    level: "INFO"
+    filePath: "/var/log/traefik/traefik.log"
+  accessLog:
+    filePath: "/var/log/traefik/access.log"

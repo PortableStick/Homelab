@@ -15,4 +15,9 @@ read email
 
 sed -i "s/adressemail/$email/g" traefik.yml
 
+echo "Réglage des permissions..."
+
+touch /home/portainer/traefik/certs/acme.json
+chmod 600 /home/portainer/traefik/certs/acme.json
+
 echo "Terminé !"

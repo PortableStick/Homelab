@@ -19,6 +19,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${TRAEFIK_FILES}/traefik.yml:/traefik.yml:ro
       - ${TRAEFIK_FILES}/certs:/certs
+      - ${TRAEFIK_FILES}/logs:/var/log/traefik
   whoami:
     container_name: whoami-traefik
     image: traefik/whoami
