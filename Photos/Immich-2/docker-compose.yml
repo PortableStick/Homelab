@@ -10,11 +10,11 @@ services:
       - backend
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.immich2.rule=Host(`photos.vindiesel.vip`)"
-        - "traefik.http.routers.immich2.entrypoints=websecure"
-        - "traefik.http.routers.immich2.tls=true"
-        - "traefik.http.routers.immich2.tls.certresolver=letencrypt"
-        - "traefik.http.services.immich2.loadbalancer.server.port=80"
+        - "traefik.http.routers.immich-server.rule=Host(`pictures.vindiesel.vip`)"
+        - "traefik.http.routers.immich-server.entrypoints=websecure"
+        - "traefik.http.routers.immich-server.tls=true"
+        - "traefik.http.routers.immich-server.tls.certresolver=letencrypt"
+        - "traefik.http.services.immich-server.loadbalancer.server.port=80"
     devices:
       - /dev/dri:/dev/dri
     volumes:
