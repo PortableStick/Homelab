@@ -29,7 +29,7 @@ services:
         - "traefik.http.routers.dashboard.tls.certresolver=letencrypt"
         - "traefik.http.routers.dashboard.service=api@internal"
         - "traefik.http.routers.dashboard.middlewares=auth"
-        - "traefik.http.middlewares.auth-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
+        - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
 
   whoami:
     container_name: whoami-traefik
