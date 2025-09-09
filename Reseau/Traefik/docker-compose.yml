@@ -22,7 +22,7 @@ services:
       - ${TRAEFIK_FILES}/certs:/certs
       - ${TRAEFIK_FILES}/logs:/var/log/traefik
     labels:
-        - "traefik.http.routers.dashboard.rule=Host(`traefik-dashboard.vindiesel.vip`)"  # Utiliser ` et non '
+        - "traefik.http.routers.dashboard.rule=Host(`traefik-dashboard.vindiesel.vip`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"  # Utiliser ` et non '
         - "traefik.http.routers.dashboard.entrypoints=websecure"
         - "traefik.http.routers.dashboard.tls=true"
         - "traefik.http.routers.dashboard.tls.certresolver=letencrypt"
