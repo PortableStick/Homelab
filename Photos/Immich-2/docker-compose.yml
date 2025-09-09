@@ -61,5 +61,5 @@ networks:
     name: frontend
     external: true
   
-  backend:
+  immich2_backend:
     name: immich2_backend
