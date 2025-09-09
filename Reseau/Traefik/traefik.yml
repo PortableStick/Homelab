@@ -25,12 +25,6 @@ certificatesResolvers:
       storage: /certs/acme.json
       # caServer: https://acme-v02.api.letsencrypt.org/directory # prod (default)
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory # staging
-      # Use **one** of the following challenge types:
-      # --- DNS Challenge (example: Cloudflare) ---
       dnsChallenge:
         provider: cloudflare
         delayBeforeCheck: 10
-
-      # --- HTTP Challenge ---
-      httpChallenge:
-        entryPoint: web
