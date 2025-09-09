@@ -26,7 +26,6 @@ certificatesResolvers:
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory # staging
       dnsChallenge:
         provider: cloudflare
-        delayBeforeCheck: 10
 
 log:
   level: "INFO"
