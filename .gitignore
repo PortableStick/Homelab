@@ -1,4 +1,5 @@
 Photos/Immich/stack.env
 Photos/Immich-2/stack.env
 Reseau/Traefik/stack.env
-Arr\gluetun\stack.env
+Arr/gluetun/stack.env
+YeetFile/stack.env
