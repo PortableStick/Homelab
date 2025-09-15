@@ -4,8 +4,10 @@ services:
     image: ghcr.io/benbusby/yeetfile:latest
     container_name: yeetfile
     restart: unless-stopped
+    networks:
+      - yeetfile_backend
     ports:
-      - 8090:${YEETFILE_PORT:-8090}
+      - 8090:8090
     expose:
       - 8090
     depends_on:
@@ -22,6 +24,9 @@ services:
       - YEETFILE_DB_PASS=${YEETFILE_DB_PASS:-postgres}
       - YEETFILE_DB_NAME=${YEETFILE_DB_NAME:-yeetfile}
       - YEETFILE_DB_HOST=${YEETFILE_DB_HOST:-db}
+      - YEETFILE_SESSION_ENC_KEY=${YEETFILE_SESSION_ENC_KEY}
+      - YEETFILE_SESSION_AUTH_KEY=${YEETFILE_SESSION_AUTH_KEY}
+      - YEETFILE_SERVER_SECRET=${YEETFILE_SERVER_SECRET}
     volumes:
       - ${YEETFILE_LOCAL_STORAGE_PATH}:/app/uploads
 
@@ -29,6 +34,8 @@ services:
     image: postgres:16-alpine
     container_name: yeetfile-db
     restart: unless-stopped
+    networks:
+      - yeetfile_backend
     volumes:
       - ./volumes/yeetfile/data:/var/lib/postgresql/data
     environment:
@@ -41,3 +48,7 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 3s
+
+networks:
+  yeetfile_backend:
+    name: yeetfile_backend
