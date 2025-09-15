@@ -1,10 +1,8 @@
 services:
 
   api:
+    image: ghcr.io/benbusby/yeetfile:latest
     container_name: yeetfile
-    build:
-      context: .
-      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - 8090:${YEETFILE_PORT:-8090}
