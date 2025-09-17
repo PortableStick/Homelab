@@ -8,13 +8,13 @@ services:
       - TZ=Etc/UTC
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.wikijs-server.rule=Host(`wikibut.vindiesel.vip`)"
-        - "traefik.http.routers.wikijs-server.entrypoints=websecure"
-        - "traefik.http.routers.wikijs-server.tls=true"
-        - "traefik.http.routers.wikijs-server.tls.certresolver=letencrypt"
-        - "traefik.http.services.wikijs-server.loadbalancer.server.port=3000"
-        - "traefik.http.routers.wikijs-http.entrypoints=web"
-        - "traefik.http.routers.wikijs-http.middlewares=redirect-to-https"
+        - "traefik.http.routers.wikijs.rule=Host(`wikibut.vindiesel.vip`)"
+        - "traefik.http.routers.wikijs.entrypoints=websecure"
+        - "traefik.http.routers.wikijs.tls=true"
+        - "traefik.http.routers.wikijs.tls.certresolver=letencrypt"
+        - "traefik.http.services.wikijs.loadbalancer.server.port=3000"
+        - "traefik.http.routers.wikijs.entrypoints=web"
+        - "traefik.http.routers.wikijs.middlewares=redirect-to-https"
         - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
     volumes:
       - /home/portainer/wikijs/config:/config
