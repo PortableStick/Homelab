@@ -2,6 +2,8 @@ services:
   wikijs:
     image: lscr.io/linuxserver/wikijs:latest
     container_name: wikijs
+    networks:
+    - frontend
     environment:
       - PUID=1000
       - PGID=1000
@@ -22,3 +24,7 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
+
+  networks:
+    frontend:
+      external: true
