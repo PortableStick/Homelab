@@ -1,0 +1,24 @@
+services:
+  wikijs:
+    image: lscr.io/linuxserver/wikijs:latest
+    container_name: wikijs
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.wikijs-server.rule=Host(`wikibut.vindiesel.vip`)"
+        - "traefik.http.routers.wikijs-server.entrypoints=websecure"
+        - "traefik.http.routers.wikijs-server.tls=true"
+        - "traefik.http.routers.wikijs-server.tls.certresolver=letencrypt"
+        - "traefik.http.services.wikijs-server.loadbalancer.server.port=3000"
+        - "traefik.http.routers.wikijs-http.entrypoints=web"
+        - "traefik.http.routers.wikijs-http.middlewares=redirect-to-https"
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    volumes:
+      - /home/portainer/wikijs/config:/config
+      - /home/portainer/wikijs/data:/data
+    ports:
+      - 3000:3000
+    restart: unless-stopped
