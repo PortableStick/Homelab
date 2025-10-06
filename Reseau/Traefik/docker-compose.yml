@@ -46,6 +46,8 @@ services:
 
   yeetfile:
     image: traefik/whoami  # Image factice pour Traefik
+    networks:
+      - frontend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.yeetfile.rule=Host(`cloudsec.vindiesel.vip`)"
