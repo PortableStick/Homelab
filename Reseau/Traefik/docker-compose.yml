@@ -55,10 +55,6 @@ services:
       - "traefik.http.routers.yeetfile.tls.certresolver=letencrypt"
       - "traefik.http.routers.yeetfile.service=yeetfile-service"
       - "traefik.http.services.yeetfile-service.loadbalancer.server.url=http://192.168.1.152:8090"
-      - "traefik.http.routers.yeetfile-http.rule=Host(`cloudsec.vindiesel.vip`)"
-      - "traefik.http.routers.yeetfile-http.entrypoints=web"
-      - "traefik.http.routers.yeetfile-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
 networks:
   frontend:
