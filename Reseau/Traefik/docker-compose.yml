@@ -50,7 +50,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.yeetfile.rule=Host(`cloudsec.vindiesel.vip`)"
       - "traefik.http.routers.yeetfile.entrypoints=websecure"
-      - "traefik.http.routers.yeetfile.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.yeetfile.tls.certresolver=letencrypt"
       - "traefik.http.routers.yeetfile.service=yeetfile-service"
       - "traefik.http.services.yeetfile-service.loadbalancer.server.url=http://192.168.1.152:8090"
       - "traefik.http.routers.yeetfile-http.entrypoints=web"
