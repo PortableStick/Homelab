@@ -18,7 +18,7 @@ services:
         - "traefik.http.routers.crafty.entrypoints=websecure"
         - "traefik.http.routers.crafty.tls=true"
         - "traefik.http.routers.crafty.tls.certresolver=letencrypt"
-        - "traefik.http.services.crafty.loadbalancer.server.port=2283"
+        - "traefik.http.services.crafty.loadbalancer.server.port=8443"
         volumes:
             - /srv/docker/crafty-4/backups:/crafty/backups
             - /srv/docker/crafty-4/logs:/crafty/logs
