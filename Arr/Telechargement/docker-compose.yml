@@ -1,4 +1,3 @@
-version: "3"
 services:
   gluetun:
     image: qmcgaw/gluetun
@@ -14,11 +13,6 @@ services:
       - VPN_PORT_FORWARDING=on
       - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8080/api/v2/app/setPreferences 2>&1'
       - SERVER_COUNTRIES=France
-
-      # Section port forwarding
-      
-      - PORT_FORWARD_ONLY=true
-      - VPN_PORT_FORWARDING=on
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
