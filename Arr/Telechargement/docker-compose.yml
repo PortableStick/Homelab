@@ -27,8 +27,6 @@ services:
       - PGID=1000
       - TZ=${TZ}
       - WEBUI_PORT=8081
-    ports:
-      - 8081:8081
     volumes:
       - /home/portainer/qbittorrent/config:/config
       - ${MEDIA_DIR}/qbittorrent/downloads:/downloads
