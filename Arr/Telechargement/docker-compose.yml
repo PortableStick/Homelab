@@ -1,12 +1,14 @@
 services:
+  # ===== VPN Container =====
   gluetun:
     image: qmcgaw/gluetun
+    container_name: gluetun
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - 8081:8081/tcp
+      - 8081:8081/tcp  # qBittorrent WebUI
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=wireguard
@@ -15,7 +17,9 @@ services:
       - VPN_PORT_FORWARDING=on
       - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8081/api/v2/app/setPreferences 2>&1'
       - SERVER_COUNTRIES=France
+    restart: unless-stopped
 
+  # ===== Download Client =====
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -23,12 +27,115 @@ services:
       gluetun:
         condition: service_healthy
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - WEBUI_PORT=8081
+      - UMASK=002
     volumes:
       - /home/portainer/qbittorrent/config:/config
-      - ${MEDIA_DIR}/qbittorrent/downloads:/downloads
+      - ${MEDIA_DIR}:/data
     restart: unless-stopped
     network_mode: "service:gluetun"
+
+  # ===== Indexer Manager =====
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - /home/portainer/prowlarr/config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  # ===== TV Shows Manager =====
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - /home/portainer/sonarr/config:/config
+      - ${MEDIA_DIR}:/data 
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  # ===== Movies Manager =====
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - /home/portainer/radarr/config:/config
+      - ${MEDIA_DIR}:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  # ===== Music Manager =====
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - /home/portainer/lidarr/config:/config
+      - ${MEDIA_DIR}:/data
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+
+  # ===== Media Server =====
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - /home/portainer/jellyfin/config:/config
+      - ${MEDIA_DIR}/media:/data/media  # Bibliothèque média en lecture seule
+    ports:
+      - 8096:8096  # HTTP WebUI
+      - 8920:8920  # HTTPS WebUI
+      - 7359:7359/udp  # Auto-discovery
+      - 1900:1900/udp  # DLNA
+    restart: unless-stopped
+    # GPU Acceleration
+    devices:
+      - /dev/dri:/dev/dri
+
+  # ===== Media Request Manager =====
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    depends_on:
+      - jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - LOG_LEVEL=info
+    volumes:
+      - /home/portainer/jellyseerr/config:/app/config
+    ports:
+      - 5055:5055
+    restart: unless-stopped
