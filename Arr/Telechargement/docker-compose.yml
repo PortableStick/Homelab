@@ -8,7 +8,8 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - 8081:8081/tcp  # qBittorrent WebUI
+      - 8081:8081/tcp  # qBittorrent WebUI HTTP
+      - 8082:8080/tcp  # qBittorrent WebUI HTTPS
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=wireguard
