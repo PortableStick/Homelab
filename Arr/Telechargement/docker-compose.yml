@@ -9,6 +9,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     ports:
       - 8081:8081/tcp  # qBittorrent WebUI (HTTP ou HTTPS)
+      - 8084:8080/tcp  # JOAL WebUI
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=wireguard
@@ -43,15 +44,17 @@ services:
   joal:
     image: anthonyraymond/joal:latest
     container_name: joal
+    depends_on:
+      gluetun:
+        condition: service_healthy
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
       - /home/portainer/joal/config:/data
-    ports:
-      - 8084:8080  # JOAL WebUI
     restart: unless-stopped
+    network_mode: "service:gluetun"
     command: ["--joal-conf=/data", "--spring.main.web-environment=true", "--server.port=8080", "--joal.ui.path.prefix=/", "--joal.ui.secret-token="]
 
   # ===== Indexer Manager =====
