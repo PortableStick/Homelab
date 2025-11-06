@@ -122,7 +122,7 @@ services:
 
   # ===== Ebooks Manager =====
   readarr:
-    image: hotio/readarr:latest
+    image: ghcr.io/hotio/readarr
     container_name: readarr
     environment:
       - PUID=${PUID}
