@@ -55,7 +55,7 @@ services:
       - /home/portainer/joal/config:/data
     restart: unless-stopped
     network_mode: "service:gluetun"
-    command: ["--joal-conf=/data", "--spring.main.web-environment=true", "--server.port=8080", "--joal.ui.path.prefix=/", "--joal.ui.secret-token="]
+    command: ["--joal-conf=/data", "--spring.main.web-environment=true", "--server.port=8080", "--joal.ui.secret-token="]
 
   # ===== Indexer Manager =====
   prowlarr:
