@@ -39,6 +39,21 @@ services:
     restart: unless-stopped
     network_mode: "service:gluetun"
 
+  # ===== Joal (Ratio) =====
+  joal:
+    image: anthonyraymond/joal:latest
+    container_name: joal
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /home/portainer/joal/config:/data
+    ports:
+      - 8084:8080  # JOAL WebUI
+    restart: unless-stopped
+    command: ["--joal-conf=/data", "--spring.main.web-environment=true", "--server.port=8080", "--joal.ui.path.prefix=/", "--joal.ui.secret-token="]
+
   # ===== Indexer Manager =====
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
