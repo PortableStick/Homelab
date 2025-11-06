@@ -121,19 +121,19 @@ services:
     restart: unless-stopped
 
   # ===== Ebooks Manager =====
-  readarr:
-    image: ghcr.io/hotio/readarr
-    container_name: readarr
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
       - UMASK=002
     volumes:
-      - /home/portainer/readarr/config:/config
+      - /home/portainer/lazylibrarian/config:/config
       - ${MEDIA_DIR}:/data
     ports:
-      - 8787:8787
+      - 5299:5299
     restart: unless-stopped
 
   # ===== Media Server =====
